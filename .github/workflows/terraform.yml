@@ -63,7 +63,7 @@ jobs:
       with:
 
         terraform_version: 1.7.0
-
+        terraform_wrapper: false
 
 
     # Step 4: Run Terraform Init
