@@ -72,18 +72,16 @@ jobs:
 
       run: terraform init
 
-
-
-    # Step 5: Run Terraform Plan to preview changes
-
+        # Step 5: Run Terraform Plan to preview changes
     - name: Terraform Plan
-
+      env:
+        TF_VAR_project_id: 'project-f2bce33d-23f5-4831-9b4'
+        TF_VAR_region: 'us-central1' # Change to your region if different
       run: terraform plan -no-color
 
-
-
     # Step 6: Run Terraform Apply (Automated with -auto-approve)
-
     - name: Terraform Apply
-
+      env:
+        TF_VAR_project_id: 'project-f2bce33d-23f5-4831-9b4'
+        TF_VAR_region: 'us-central1'
       run: terraform apply -auto-approve -no-color
