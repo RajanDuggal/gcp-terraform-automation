@@ -75,15 +75,19 @@ jobs:
         # Step 5: Run Terraform Plan to preview changes
     - name: Terraform Plan
       env:
+        TF_INPUT: "false"
+        TF_LOG: INFO
         TF_VAR_project_id: 'project-f2bce33d-23f5-4831-9b4'
         TF_VAR_gcp_region: 'us-central1' # Change to your region if different
         TF_VAR_environment_prefix: 'globant-prep'
-      run: terraform plan -no-color -input=false
+      run: terraform plan -no-color -input=false -lock-timeout=60s
 
     # Step 6: Run Terraform Apply (Automated with -auto-approve)
     - name: Terraform Apply
       env:
+        TF_INPUT: "false"
+        TF_LOG: INFO
         TF_VAR_project_id: 'project-f2bce33d-23f5-4831-9b4'
         TF_VAR_gcp_region: 'us-central1'
         TF_VAR_environment_prefix: 'globant-prep'
-      run: terraform apply -auto-approve -no-color -input=false
+      run: terraform apply -auto-approve -no-color -input=false -lock-timeout=60s
