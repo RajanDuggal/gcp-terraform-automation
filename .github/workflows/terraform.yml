@@ -78,7 +78,7 @@ jobs:
         TF_VAR_project_id: 'project-f2bce33d-23f5-4831-9b4'
         TF_VAR_gcp_region: 'us-central1' # Change to your region if different
         TF_VAR_environment_prefix: 'globant-prep'
-      run: terraform plan -no-color
+      run: terraform plan -no-color -input=false
 
     # Step 6: Run Terraform Apply (Automated with -auto-approve)
     - name: Terraform Apply
@@ -86,4 +86,4 @@ jobs:
         TF_VAR_project_id: 'project-f2bce33d-23f5-4831-9b4'
         TF_VAR_gcp_region: 'us-central1'
         TF_VAR_environment_prefix: 'globant-prep'
-      run: terraform apply -auto-approve -no-color
+      run: terraform apply -auto-approve -no-color -input=false
