@@ -2,7 +2,7 @@
 # CORE INFRASTRUCTURE VARIABLES
 # ------------------------------------------------------------------------------
 
-variable "project-f2bce33d-23f5-4831-9b4" {
+variable "project_id" {
   type        = string
   description = "The Google Cloud Project ID"
   # No default on purpose - this MUST be passed securely via GitHub Actions YAML
@@ -46,19 +46,19 @@ variable "subnet_cidr" {
 # KUBERNETES (GKE) VARIABLES
 # ------------------------------------------------------------------------------
 
-variable "cluster_name" {
+variable "gke_cluster_name" {
   type        = string
   description = "The name of the GKE cluster"
   default     = "primary-cluster"
 }
 
-variable "machine_type" {
+variable "gke_machine_type" {
   type        = string
   description = "The machine type for the GKE nodes"
   default     = "e2-medium"
 }
 
-variable "node_count" {
+variable "gke_num_nodes" {
   type        = number
   description = "Number of worker nodes in the GKE cluster"
   default     = 1
