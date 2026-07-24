@@ -11,13 +11,13 @@ variable "project_id" {
 variable "gcp_region" {
   type        = string
   description = "The Google Cloud region to deploy resources in"
-  default     = "us-central1"
+  default     = "us-east1"
 }
 
 variable "gcp_zone" {
   type        = string
   description = "The specific zone within the region"
-  default     = "us-central1-a"
+  default     = "us-east1-b"
 }
 
 variable "environment_prefix" {
