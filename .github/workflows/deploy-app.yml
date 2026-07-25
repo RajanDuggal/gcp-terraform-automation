@@ -22,7 +22,7 @@ jobs:
     - name: Get GKE Credentials
       uses: google-github-actions/get-gke-credentials@v2
       with:
-        cluster_name: 'accenture-prep-gke-cluster'
+        cluster_name: 'globant-prep-gke-cluster'
         location: 'us-central1'
 
     - name: Deploy Application
