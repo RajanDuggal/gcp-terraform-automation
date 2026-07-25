@@ -30,7 +30,20 @@ To prevent secret leaks and maintain state integrity, strict `.gitignore` rules 
 2. **Teardown Infrastructure (`terraform-destroy.yml`):** Dedicated manual workflow with an explicit confirmation step (`DESTROY`) to safely decommission resources directly from GitHub.
 
 ### Troubleshooting & State Handling
-When workflow runs are interrupted or cancelled mid-flight, GCS state locks can persist. Locks are safely cleared using:
+If workflow runs are interrupted or cancelled mid-flight, GCS state locks can persist and block future pipelines. To fix this without touching the terminal:
+1. Copy the `Lock ID` from the failed GitHub Actions log.
+2. Run the **Terraform Force Unlock** workflow from the Actions tab.
+3. Paste the Lock ID as the input parameter to instantly release the lock.
 
-```bash
-terraform force-unlock <LOCK_ID>
+---
+
+## 🚀 Getting Started
+
+1. **Clone the repository:**
+  git clone [https://github.com/RajanDuggal/gcp-terraform-automation.git]
+   cd gcp-terraform-automation
+
+
+Initialize Terraform locally:
+terraform init
+terraform validate
