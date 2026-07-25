@@ -1,0 +1,41 @@
+name: 'Teardown App from GKE'
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_teardown:
+        description: 'Type "DELETE" to confirm application teardown'
+        required: true
+        default: 'CANCEL'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  destroy-app:
+    runs-on: ubuntu-latest
+    
+    # Safeguard: Only run if the user typed DELETE
+    if: github.event.inputs.confirm_teardown == 'DELETE'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider: 'projects/YOUR_PROJECT_NUMBER/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
+        service_account: 'github-actions-sa@YOUR_PROJECT_ID.iam.gserviceaccount.com'
+
+    - name: Get GKE Credentials
+      uses: google-github-actions/get-gke-credentials@v2
+      with:
+        cluster_name: 'accenture-prep-gke-cluster'
+        location: 'us-east1'
+
+    - name: Delete Kubernetes Resources
+      run: |
+        kubectl delete -f k8s/service.yaml
+        kubectl delete -f k8s/deployment.yaml
