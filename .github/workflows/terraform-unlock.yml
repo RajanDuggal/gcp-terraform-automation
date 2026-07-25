@@ -1,0 +1,34 @@
+name: 'Terraform Force Unlock'
+
+on:
+  workflow_dispatch:
+    inputs:
+      lock_id:
+        description: 'The State Lock ID to force unlock (e.g., 1709420958971842)'
+        required: true
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  terraform-unlock:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider: 'projects/250794715777/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
+        service_account: 'github-actions-sa@project-f2bce33d-23f5-4831-9b4.iam.gserviceaccount.com'
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Force Unlock
+      run: terraform force-unlock -force ${{ github.event.inputs.lock_id }}
