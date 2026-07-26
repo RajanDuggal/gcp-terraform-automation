@@ -35,3 +35,12 @@ jobs:
       run: |
         kubectl apply -f k8s/deployment.yaml
         kubectl apply -f k8s/service.yaml
+
+
+    - name: Get Public IP Address
+      run: |
+        echo "Waiting 45 seconds for Google Cloud to provision the Load Balancer..."
+        sleep 50
+        echo "========================================"
+        kubectl get service nginx-service
+        echo "========================================"
