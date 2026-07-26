@@ -25,6 +25,12 @@ jobs:
         cluster_name: 'globant-prep-gke-cluster'
         location: 'us-central1'
 
+    - name: Debug File System
+      run: |
+        pwd
+        ls -la
+        ls -la k8s/ 
+    
     - name: Deploy Application
       run: |
         kubectl apply -f k8s/deployment.yaml
