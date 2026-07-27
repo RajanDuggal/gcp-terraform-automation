@@ -31,6 +31,13 @@ jobs:
 
       uses: actions/checkout@v4
 
+        # Catching vulnerabilities before deployment
+        # keeping soft_fail: true because by default, GKE has some minor security warnings like missing encryption keys. If we don't set this to true, tfsec will instantly crash your pipeline
+        
+    - name: Run tfsec Security Scanner
+      uses: aquasecurity/tfsec-action@v1.0.3
+      with:
+        soft_fail: true
 
 
     # Step 2: Authenticate to GCP using Keyless Workload Identity Federation
